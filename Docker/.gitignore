@@ -1,0 +1,9 @@
+# for Mac OS X System Files
+.DS_Store
+node_modules/
+dist/
+npm-debug.log
+build-debugger.js
+.ide
+
+config.ini

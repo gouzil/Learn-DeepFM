@@ -1,0 +1,36 @@
+# deepfm配置
+[DEEPFM]
+# 是否启用GPU(不会真的有人服务器有GPU吧, 而且CPU好像更快一点)
+USE_GPU=False
+# 模型文件位置
+MODEL_FILE=/home/aistudio/output_model_all_deepfm/0/tostatic.pdmodel
+# 参数文件位置
+PARAMS_FILE=/home/aistudio/output_model_all_deepfm/0/tostatic.pdiparams
+# 读取数据集
+READER_FILE=/home/aistudio/work/PaddleRec/models/rank/deepfm/criteo_reader.py
+# 批大小
+BATCHSIZE=5
+# 在使用gpu时是否开启tensorRT加速，在使用cpu时此参数无效(有点问题，暂时不打开)
+ENABLE_TENSORRT=False
+# 在使用cpu时是否开启mkldnn加速，在使用gpu时此参数无效
+ENABLE_MKLDNN=False
+# 在使用cpu时指定线程数，在使用gpu时此参数无效(当指定线程数大于实际线程数时, 可能会造成反向优化, 或者跑不起来)
+CPU_THREADS=1
+# 模型名称
+MODEL_NAME=rec_model
+# 精度
+PRECISION=None
+# 保存日志
+SAVE_LOG_PATH=./output
+
+# redis配置
+[REDIS]
+RHOST=127.0.0.1
+RPORT=6379
+RNUM=0
+RPWD=
+
+[FLASK]
+FHOST=0.0.0.0
+FPORT=8867
+FDEBUG=true

@@ -1,0 +1,3 @@
+paddlepaddle
+Flask==2.0.1
+redis==2.10.6

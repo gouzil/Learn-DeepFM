@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # reader = None
 
 # 开启visualDL_log才能输出可视化图像 [!请修改]
-file_dir = "/home/aistudio/work/PaddleRec/models/rank/deepfm/visualDL_log/"
+file_dir = "../PaddleRec/models/rank/deepfm/visualDL_log/"
 
 now_time = time.strftime('%Y-%m-%d',time.localtime(time.time()))
 

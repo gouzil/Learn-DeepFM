@@ -1,0 +1,24 @@
+# for Mac OS X System Files
+.DS_Store
+node_modules/
+dist/
+npm-debug.log
+build-debugger.js
+.ide
+
+*
+!.gitignore
+!Docker/
+!Docker/**
+!doc/
+!doc/**
+!code/
+!code/**
+!AutoLog/
+!AutoLog/**
+!PaddleRec/
+!PaddleRec/**
+!output_model_all_deepfm_epochs_4/
+!output_model_all_deepfm_epochs_4/**
+!LICENSE
+!README.MD

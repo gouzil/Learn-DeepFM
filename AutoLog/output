@@ -1,0 +1,29 @@
+[2021/12/16 08:58:33] root INFO: 
+
+[2021/12/16 08:58:33] root INFO: ---------------------- Env info ----------------------
+[2021/12/16 08:58:33] root INFO:  OS_version: Ubuntu 16.04
+[2021/12/16 08:58:33] root INFO:  CUDA_version: 10.1.243
+[2021/12/16 08:58:33] root INFO:  CUDNN_version: 7.3.1
+[2021/12/16 08:58:33] root INFO:  drivier_version: 418.67
+[2021/12/16 08:58:33] root INFO: ---------------------- Paddle info ----------------------
+[2021/12/16 08:58:33] root INFO:  paddle_version: 2.2.1
+[2021/12/16 08:58:33] root INFO:  paddle_commit: a5cf2e305b744e3ebd2f2210341f88d349d4ec5e
+[2021/12/16 08:58:33] root INFO:  log_api_version: 1.0
+[2021/12/16 08:58:33] root INFO: ----------------------- Conf info -----------------------
+[2021/12/16 08:58:33] root INFO:  runtime_device: cpu
+[2021/12/16 08:58:33] root INFO:  ir_optim: True
+[2021/12/16 08:58:33] root INFO:  enable_memory_optim: True
+[2021/12/16 08:58:33] root INFO:  enable_tensorrt: False
+[2021/12/16 08:58:33] root INFO:  enable_mkldnn: False
+[2021/12/16 08:58:33] root INFO:  cpu_math_library_num_threads: 8
+[2021/12/16 08:58:33] root INFO: ----------------------- Model info ----------------------
+[2021/12/16 08:58:33] root INFO:  model_name: rec_model
+[2021/12/16 08:58:33] root INFO:  precision: None
+[2021/12/16 08:58:33] root INFO: ----------------------- Data info -----------------------
+[2021/12/16 08:58:33] root INFO:  batch_size: 5
+[2021/12/16 08:58:33] root INFO:  input_shape: dynamic
+[2021/12/16 08:58:33] root INFO:  data_num: 16
+[2021/12/16 08:58:33] root INFO: ----------------------- Perf info -----------------------
+[2021/12/16 08:58:33] root INFO:  cpu_rss(MB): 373.8086, gpu_rss(MB): 10.0, gpu_util: 0.0%
+[2021/12/16 08:58:33] root INFO:  total time spent(s): 0.097
+[2021/12/16 08:58:33] root INFO:  preprocess_time(ms): 0.1764, inference_time(ms): 5.8735, postprocess_time(ms): 0.0112

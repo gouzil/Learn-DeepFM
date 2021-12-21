@@ -7,7 +7,7 @@ MODEL_FILE=/home/aistudio/output_model_all_deepfm/0/tostatic.pdmodel
 # 参数文件位置
 PARAMS_FILE=/home/aistudio/output_model_all_deepfm/0/tostatic.pdiparams
 # 读取数据集
-READER_FILE=/home/aistudio/work/PaddleRec/models/rank/deepfm/criteo_reader.py
+READER_FILE=/home/aistudio/PaddleRec/models/rank/deepfm/criteo_reader.py
 # 批大小
 BATCHSIZE=5
 # 在使用gpu时是否开启tensorRT加速，在使用cpu时此参数无效(有点问题，暂时不打开)

@@ -382,23 +382,8 @@ python -u ~/PaddleRec/tools/static_infer.py -m ~/PaddleRec/models/rank/deepfm/co
 
 AUC面积（Area Under Curve），又称ROC曲线下的面积，它描述的是分类器C随机抽取的一个正例的预测概率大于一个负例的预测概率的概率。简单地说，就是做随机抽样时，P(P) ≥ P(N)中 ≥ 成立的概率。
 
-<img src='./doc/imgs/Area Under Curve.png' width=400>
+<img src='https://ai-studio-static-online.cdn.bcebos.com/1b19c943434a45c88fa6aafa123a39849160489cbed8403c80d9761e1eb4a2bb' width=400>
 
-如上图紫色部分，AUC面积是指ROC曲线与下方坐标轴围成图形的面积，因为ROC曲线一般在斜线的上方，所以AUC面积的取值为[0.5，1]，数值越大表示模型分类效果越好。同时，AUC面积和ROC曲线一样，不受正负样例分布的影响。其常用评估界值如下：
-
-0.5 - 0.7：效果较低
-
-0.7 - 0.85：效果一般
-
-0.85 - 0.95：效果很好
-
-0.95 - 1：效果非常好，但很可能过拟合，一般不太可能
-
-
-
-| 模型 | auc | 预测时间 | 总结 |
-| :------| :------| :------ | :------ | 
-| deepFM | 0.78 | 279.38s |  效果一般 | 
 
 
 <a name="模型可视化"></a>

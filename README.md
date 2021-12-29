@@ -25,19 +25,24 @@
 
 <center><img src='./doc/imgs/StatisticalData.png' width=600></center><center>图1.2009—2019中国广告经营额</center> 
 
-
 针对短视频、搜索、资讯等场景，应用飞桨[PaddleRec](https://github.com/PaddlePaddle/PaddleRec/tree/master)的推荐算法技术，对召回数据进行排序最终展现给用户，最大限度吸引用户、留存用户、增加用户粘性、提高用户转化率。
 <center><img src='./doc/imgs/logo.png' width=600></center>
 <center><img src='./doc/imgs/structure.png' width=600></center>
 <center><img src='./doc/imgs/overview.png' width=600></center>
 
 <br/>
-<br/>
 
 #### **推荐系统大致流程**
 
-
 <center><img src='./doc/imgs/circuit.png' width=600></center>
+
+#### 架构介绍:
+
+<center><img src='./doc/imgs/Architectural perspective.png' width=600></center>
+
+#### 推荐模型介绍:
+
+<center><img src='./doc/imgs/Model perspective.png' width=600></center>
 
 #### **方案难点**
 
@@ -198,21 +203,30 @@ cd ~/
 
 ## 4 模型选择
 
+ * DeepFM借鉴了Google的wide & deep的做法，其本质是
 
-|       数据集        |       模型       |       train_loss        |       train_auc          |       acc         |
+    1.将Wide & Deep 部分的wide部分由 人工特征工程+LR 转换为FM模型，避开了人工特征工程；
+
+    2.FM模型与deep part共享feature embedding。
+
+ * FM Component + Deep Component。FM提取低阶组合特征，Deep提取高阶组合特征。但是和Wide&Deep不同的是，DeepFM是端到端的训练，不需要人工特征工程。
+ 
+ * 共享feature embedding。FM和Deep共享输入和feature embedding不但使得训练更快，而且使得训练更加准确。相比之下，Wide&Deep中，input vector非常大，里面包含了大量的人工设计的pairwise组合特征，增加了他的计算复杂度。
+
+
+|       数据集        |       模型       |       训练loss        |       训练auc          |       预测auc         |
 | :------------------: | :--------------------: | :---------: |:---------: | :---------: |
-|       Criteo        |       DNN       |       0.44        |        0.79         |       0.79          |
+|       Criteo        |       DNN       |       0.44        |        0.79         |       0.79         |
 |       Criteo        |       Logistic Regression       |       --        |      0.67          |       --          |
 |       Criteo        |       FM       |       --        |       0.78          |       --          |
 |       Criteo        |       GateDnn       |       --        |       0.79          |       --          |
-|       Criteo        |       DeepFM       |       0.44797        |       0.78          |       --          |
+|       Criteo        |       DeepFM       |       0.44797        |       0.78          |       0.77214          |
 |       criteo        |       Wide&Deep       |       0.76195         |       0.82          |       --          |
 |       criteo        |       dcn       |       --         |       0.77          |       --          |
 |       criteo        |       deepfefm       |       --         |       0.8028          |       --          |
 |       criteo        |       DLRM       |       --         |       0.79          |       --          |
 |       criteo        |       ffm       |       --         |       0.79          |       --          |
 |       criteo        |       xDeepFM       |       --         |       0.79          |       --          |
-
 
 <a name="模型训练"></a>
 
@@ -500,7 +514,7 @@ GPU: NVIDIA Tesla V100 SXM2 32GB
 <img src='./doc/imgs/Increase_training.png' width=400>
 
 
-| 迭代次数 | train_loss | train_auc | train_auc |
+| 迭代次数 | 训练loss | 训练auc | 预测auc |
 | ------ | ----------- | ------- | ------- |
 |  1     |   0.44797   |   0.78  |  0.77214  |
 |  4     |   0.47313   |   0.81  |  0.80526  |
@@ -517,7 +531,7 @@ Batch Size的大小影响模型的优化程度和速度。同时其直接影响�
 
 <img src='./doc/imgs/Revise_batch_size.png' width=400>
 
-| 批大小 | train_loss | train_auc | train_auc |
+| 批大小 | 训练loss | 训练auc | 预测auc |
 | ------ | ----------- | ------- | ------- |
 |  256   |   0.48464   |   0.77  |  0.75091  |
 |  512   |   0.44797   |   0.78  |  0.77214  |
@@ -537,7 +551,7 @@ Batch Size的大小影响模型的优化程度和速度。同时其直接影响�
 
 <img src='./doc/imgs/optimizer.png' width=400>
 
-|   优化器  |  train_loss | train_auc | infer_auc |
+|   优化器  |  训练loss | 训练auc | 预测auc |
 | -------- | ----------- | -------- | --------- |
 |  Adam    |   0.44797   |   0.78   |  0.77214 |
 |  SGD     |   0.47405   |   0.77   |  0.76693 |
@@ -553,7 +567,7 @@ Batch Size的大小影响模型的优化程度和速度。同时其直接影响�
 
 <img src='./doc/imgs/optimizer.png' width=400>
 
-| 学习率 | train_loss | train_auc | infer_auc |
+| 学习率 | 训练loss | 训练auc | 预测auc |
 | ------ | ----------- | ------- | --------- |
 |  0.001    |   0.44797   |   0.78  |  0.77214 |
 |  0.01     |   2.96769   |   0.51  |  0.49999 |
@@ -570,7 +584,7 @@ Batch Size的大小影响模型的优化程度和速度。同时其直接影响�
 
 <img src='https://ai-studio-static-online.cdn.bcebos.com/8106c548a6f94a41b8af006870e33663a0ae0e92f36b42b7bf0cbbf77adfcc87' width=600>
 
-|        全连接层      |  train_loss | train_auc | infer_auc |
+|        全连接层      |  训练loss | 训练auc | 预测auc |
 | ------------------- | ----------- | ------- | --------- |
 |  [400, 400, 400]    |   0.44797   |   0.78  |  0.77214 |
 |  [512, 256, 128]    |   0.47318   |   0.77  |  0.76565 |
@@ -585,14 +599,88 @@ Batch Size的大小影响模型的优化程度和速度。同时其直接影响�
 
 <img src='./doc/imgs/deepfm_server.png' width=800>
 
+
+#### **使用paddle serving进行c++部署(在aistudio不能执行):**
+
+推荐使用docker搭建paddle serving
+
+```bash
+pip install paddle-serving-client -i https://mirror.baidu.com/pypi/simple
+pip install paddle-serving-server -i https://mirror.baidu.com/pypi/simple
+pip install paddle_serving_app -i https://mirror.baidu.com/pypi/simple
+# 使用gpu需要安装
+pip install paddle-serving-server-gpu -i https://mirror.baidu.com/pypi/simple
+```
+
+```python
+# 导出serving需要使用的文件
+import paddle_serving_client.io as serving_io
+serving_io.inference_model_to_serving(
+    dirname="output_model_all_deepfm/0/", 
+    serving_server="serving_server", 
+    serving_client="serving_client",  
+    model_filename="tostatic.pdmodel", 
+    params_filename="tostatic.pdiparams")
+```
+
+#### 启动服务
+
+```bash
+cd PaddleRec/models/rank/deepfm/
+ python3 -m paddle_serving_server.serve --model serving_server --port 9393
+```
+
+测试部署服务：
+```bash
+python3 -u ../../../tools/rec_client.py --client_config=serving_client/serving_client_conf.prototxt --connect=0.0.0.0:9393 --use_gpu=false --data_dir=~/PaddleRec/datasets/criteo/slot_test_data_full --reader_file=criteo_reader.py --batchsize=5 --client_mode=rpc
+```
+
+返回值示例:
+
+```bash
+I1229 04:14:09.951630 93427 general_model.cpp:490] [client]logid=0,client_cost=19.238ms,server_cost=16.482ms.
+{'sigmoid_0.tmp_0': array([[0.4066131 ],
+       [0.98054665],
+       [0.26659673],
+       [0.9993316 ],
+       [0.01065591]], dtype=float32)}
+I1229 04:14:09.969341 93427 general_model.cpp:490] [client]logid=0,client_cost=14.159ms,server_cost=11.989ms.
+{'sigmoid_0.tmp_0': array([[0.13911244],
+       [0.4447395 ],
+       [0.05189119],
+       [0.09342456],
+       [0.00317834]], dtype=float32)}
+I1229 04:14:09.996845 93427 general_model.cpp:490] [client]logid=0,client_cost=23.606ms,server_cost=20.878ms.
+{'sigmoid_0.tmp_0': array([[0.08483634],
+       [0.6469881 ],
+       [0.01495558],
+       [0.6999975 ],
+       [0.19809735]], dtype=float32)}
+
+.....
+
+I1229 04:14:10.145457 93427 general_model.cpp:490] [client]logid=0,client_cost=20.756ms,server_cost=15.508ms.
+{'sigmoid_0.tmp_0': array([[1.0309319e-01],
+       [3.3357497e-02],
+       [7.7633208e-01],
+       [9.9997580e-01],
+       [1.3711449e-05]], dtype=float32)}
+I1229 04:14:10.165000 93427 general_model.cpp:490] [client]logid=0,client_cost=12.866ms,server_cost=10.198ms.
+{'sigmoid_0.tmp_0': array([[0.00725924],
+       [0.60281265],
+       [0.09260521],
+       [0.03498047],
+       [0.14035006]], dtype=float32)}
+```
+
 <br/>
+<br/>
+
+ #### **使用python部署:**
 
  * post参数:
 
 <img src='./doc/imgs/post_deepfm_0.png' width=800>
-
-<br/>
-<br/>
 
  * post Header参数:
 

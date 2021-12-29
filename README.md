@@ -34,13 +34,52 @@
 
 #### **推荐系统大致流程**
 
+    ①产品接入推荐业务后
+
+    ②经过brpc进行请求
+
+    ③发送给服务器计算，得到点击概率值，筛选概率较低的值
+
+    ④结合召回系统进行内容融合，加入收益相关内容
+
+参考下图
+
 <center><img src='./doc/imgs/circuit.png' width=600></center>
 
 #### 架构介绍:
 
+    ①用户使用产品
+
+    ②产品接入推荐业务
+
+    ③召回:
+     根据行为数据生成特征值, 生成用户模型;
+     根据下发日志获取仓库数据资源, 生成内容模型
+     对用户模型+内容模型进行显式和隐式召回
+
+    ④排序:
+     对下发历史记录合并去重
+     进行粗排-->精排
+
+    ⑤对排序和召回后的数据进行预测
+
+    ⑥将预测结果加入广告等进行融合，最后返回给用户
+
+参考下图
+
 <center><img src='./doc/imgs/Architectural perspective.png' width=600></center>
 
-#### 推荐模型介绍:
+#### 个性化推荐:
+
+    ①从内容库选取大量数据
+
+    ②召回系统根据用户画像和用户行为进行初步筛选
+
+    ③通过粗排、精排去掉点击率低的
+
+    ④增加广告等内容，最后呈现给用户
+
+参考下图
 
 <center><img src='./doc/imgs/Model perspective.png' width=600></center>
 
@@ -582,7 +621,7 @@ Batch Size的大小影响模型的优化程度和速度。同时其直接影响�
 
 **大致流程:**
 
-<img src='./doc/imgs/deepfm_server.png' width=800>
+<img src='./doc/imgs/Paddle Serving perspective.png' width=800>
 
 
 #### **使用paddle serving进行c++部署(在aistudio不能执行):**
@@ -661,7 +700,7 @@ I1229 04:14:10.165000 93427 general_model.cpp:490] [client]logid=0,client_cost=1
 <br/>
 <br/>
 
- #### **使用python部署:**
+ #### **使用python Flask部署:**
 
  * post参数:
 

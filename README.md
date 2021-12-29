@@ -774,6 +774,8 @@ rm -rf ~/PaddleRec/datasets/criteo/slot_test_data_full
 
  * [9]DeepFM: A Factorization-Machine based Neural Network for CTR Prediction : [https://arxiv.org/pdf/1703.04247.pdf](https://arxiv.org/pdf/1703.04247.pdf)
 
+ * [10]PaddleServing: [https://github.com/PaddlePaddle/Serving](https://github.com/PaddlePaddle/Serving)
+
 <a name="开源数据"></a>
 
 ## 开源数据

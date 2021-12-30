@@ -252,18 +252,18 @@ cd ~/
  
  * 共享feature embedding。FM和Deep共享输入和feature embedding不但使得训练更快，而且使得训练更加准确。相比之下，Wide&Deep中，input vector非常大，里面包含了大量的人工设计的pairwise组合特征，增加了他的计算复杂度。
 
+以下数据的详细配置在```doc/Model selection```
 
 |       数据集        |       模型       |       训练loss        |       训练auc          |       预测auc         |
 | :------------------: | :--------------------: | :---------: |:---------: | :---------: |
 |       Criteo        |       DNN       |       0.44        |        0.79         |       0.79         |
-|       Criteo        |       Logistic Regression       |       --        |      0.67          |       --          |
 |       Criteo        |       FM       |       --        |       0.78          |       --          |
 |       Criteo        |       GateDnn       |       --        |       0.79          |       --          |
 |       Criteo        |       DeepFM       |       0.44797        |       0.78          |       0.77214          |
 |       criteo        |       Wide&Deep       |       0.76195         |       0.82          |       --          |
 |       criteo        |       dcn       |       --         |       0.77          |       --          |
 |       criteo        |       deepfefm       |       --         |       0.8028          |       --          |
-|       criteo        |       DLRM       |       --         |       0.79          |       --          |
+|       criteo        |       DLRM       |       0.45         |       0.79          |       0.80          |
 |       criteo        |       ffm       |       --         |       0.79          |       --          |
 |       criteo        |       xDeepFM       |       --         |       0.79          |       --          |
 

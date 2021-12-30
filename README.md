@@ -14,8 +14,7 @@
 * [模型优化](#模型优化)
 * [模型部署](#模型部署)
 * [文件清理](#文件清理)
-* [已知问题](#已知问题)
-* [待完善](#待完善)
+* [TODO](#TODO)
 
 <a name="项目说明"></a>
 
@@ -75,9 +74,9 @@
 
     ②召回系统根据用户画像和用户行为进行初步筛选
 
-    ③通过粗排、精排去掉点击率低的
+    ③通过粗排、精排选择预估更符合用户兴趣的  
 
-    ④增加广告等内容，最后呈现给用户
+    ④增加广告等内容，重新排序，最后呈现给用户
 
 参考下图
 
@@ -114,8 +113,11 @@
 
  * Hidden Layer：该模块主要是应用DNN模型结构，提取深层次的特征信息；
  
- * 输出层（Output Units）：对FM Layer和Hidden Layer的结果进行Sigmoid操作，得出最终的结果。表达式：yˆ = sigmoid(yFM + yDNN )
+ * 输出层（Output Units）：对FM Layer和Hidden Layer的结果进行Sigmoid操作，得出最终的结果。表达式：
+ $$\hat{y} = sigmoid(y_{FM} + y_{DNN})$$
 
+
+其中$𝑦_{𝐹𝑀}$是FM模型的输出，而$𝑦_{𝐷𝑁𝑁}$是DNN的输出。
 
 这里就不详细介绍每层的作用了，具体的参考论文: [DeepFM: A Factorization-Machine based Neural Network for CTR Prediction
 ](https://arxiv.org/pdf/1703.04247.pdf)
@@ -162,52 +164,64 @@ cd PaddleRec
 ```bash
 aistudio@jupyter-885527-3178715:~$ tree -L 3
 .
-├── 3178715.ipynb
-├── AutoLog
+├── AutoLog # AutoLog模块安装文件夹
 │   ├── auto_log
-│   │   ├── autolog.h
-│   │   ├── autolog.py
-│   │   ├── device.py
-│   │   ├── env.py
+│   └── .....
+├── data # 排序数据集
+│   ├── data123868 # 挂载数据集压缩包目录
+│   │   ├── slot_test_data_full.tar.gz # 测试数据集压缩包
+│   │   └── slot_train_data_full.tar.gz # 训练数据集压缩包
+│   ├── slot_test_data_full # 测试数据集
+│   │   ├── part-220 # 测试数据集
+│   │   ├── part-221 # 测试数据集
+│   │   └── ......
+│   └── slot_train_data_full # 训练数据集
+│       ├── part-0 # 训练数据集
+│       ├── part-1 # 训练数据集
+│       ├── part-10 # 训练数据集
+│       └── ......
+├── Docker # Flask服务源码
+│   ├── common 
+│   │   ├── config # 读取配置文件方法
+│   │   ├── controller
 │   │   ├── __init__.py
-│   │   ├── lite_autolog.h
-│   │   ├── __pycache__
-│   │   └── utils.py
-│   ├── auto_log.egg-info
-│   │   ├── dependency_links.txt
-│   │   ├── PKG-INFO
-│   │   ├── requires.txt
-│   │   ├── SOURCES.txt
-│   │   └── top_level.txt
-│   ├── build
-│   │   ├── bdist.linux-x86_64
-│   │   └── lib
-│   ├── CMakeLists.txt
-│   ├── dist
-│   │   └── auto_log-1.0.0-py3-none-any.whl
-│   ├── output
+│   │   ├── lib
+│   │   └── model
+│   ├── config.ini # 配置文件
+│   ├── config.ini.bak # 配置文件备份
+│   ├── deepfm # 特征文件
+│   │   └── data
+│   ├── main.py
 │   ├── README.md
-│   ├── requirements.txt
-│   └── setup.py
-├── output_model_all_deepfm
-│   └── 0
+│   ├── requirements.txt # 需要安装的环境
+│   └── start.sh # 启动服务
+├── Docker.zip # Flask服务源码压缩包
+├── output_model_all_deepfm # 训练后模型文件
+│   └── 0 # 第一次训练后文件
+│       ├── rec.pdopt # 训练优化器的参数
+│       ├── rec.pdparams # 训练网络的参数dict，key为变量名，value为Tensor array数值
+│       ├── tostatic.pdiparams # 二进制Tensor存储格式
+│       ├── tostatic.pdiparams.info # 推理用参数的*.pdiparams文件和保存兼容变量信息
+│       └── tostatic.pdmodel # 模型结构
+├── output_model_all_deepfm_epochs_4 # 训练四次后模型文件
+│   ├── 0
+│   │   ├── rec.pdopt
+│   │   ├── rec.pdparams
+│   │   ├── tostatic.pdiparams
+│   │   ├── tostatic.pdiparams.info
+│   │   └── tostatic.pdmodel
+│   ├── 1
+│   │   ├── rec.pdopt
+│   │   └── rec.pdparams
+│   ├── 2
+│   │   ├── rec.pdopt
+│   │   └── rec.pdparams
+│   └── 3
 │       ├── rec.pdopt
-│       ├── rec.pdparams
-│       ├── tostatic.pdiparams
-│       ├── tostatic.pdiparams.info
-│       └── tostatic.pdmodel
-└── PaddleRec
-    ├── datasets
-    ├── doc
-    ├── __init__.py
-    ├── LICENSE
-    ├── models
-    ├── __pycache__
-    ├── README_EN.md
-    ├── README.md
-    ├── recserving
-    ├── tests
-    └── tools
+│       └── rec.pdparams
+├── PaddleRec # PaddleRec源码
+│   └── ......
+└── PaddleRec.zip # PaddleRec源码压缩包
 ```
 
 
@@ -265,7 +279,7 @@ cd ~/
 |       criteo        |       deepfefm       |       --         |       0.8028          |       --          |
 |       criteo        |       DLRM       |       0.45         |       0.79          |       0.80          |
 |       criteo        |       ffm       |       --         |       0.79          |       --          |
-|       criteo        |       xDeepFM       |       --         |       0.79          |       --          |
+|       criteo        |       xDeepFM       |       --         |       0.78          |       0.79          |
 
 <a name="模型训练"></a>
 
@@ -756,23 +770,17 @@ rm -rf ~/PaddleRec/datasets/criteo/slot_train_data_full
 rm -rf ~/PaddleRec/datasets/criteo/slot_test_data_full
 ```
 
-<a name="已知问题"></a>
+<a name="TODO"></a>
 
-## 13 已知问题
+## 13 TODO
 
- * [1] 改进后的模型部署，日志会重复输出(暂时用强制退出解决)
+ - [ ] 改进后的模型部署，日志会重复输出(暂时用强制退出解决)
 
- * [2] 在aistuido平台使用模型部署时使用```--enable_tensorRT```进行加速时提示```请使用带有TensorR编译的Paddle推断库```[使用Paddle-TensorRT库预测](https://www.paddlepaddle.org.cn/documentation/docs/zh/1.8/advanced_guide/performance_improving/inference_improving/paddle_tensorrt_infer.html)
+ - [ ] 在aistuido平台使用模型部署时使用```--enable_tensorRT```进行加速时提示```请使用带有TensorR编译的Paddle推断库```[使用Paddle-TensorRT库预测](https://www.paddlepaddle.org.cn/documentation/docs/zh/1.8/advanced_guide/performance_improving/inference_improving/paddle_tensorrt_infer.html)
 
-<a name="待完善"></a>
+- [ ] 模型服务部署优化速度
 
-## 14 待完善
-
- * [1] 模型优化数据
-
- * [2] 模型部署优化速度
-
- * [3] docker服务编写
+- [ ] docker服务编写
 
 <a name="参考资料"></a>
 

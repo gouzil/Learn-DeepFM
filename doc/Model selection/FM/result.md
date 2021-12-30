@@ -1,7 +1,7 @@
-# xDeepFM
+# FM
 
-auc_list累加值 6734.78226172924 平均值 0.7836609566824808
-infer_auc累加值 285.9816448688507 平均值 0.7943934579690297
+auc_list累加值 8953.777222812176 平均值 0.782909509098807
+infer_auc累加值 1124.8016819357872 平均值 0.8311122791220745
 
 配置文件：
 
@@ -12,19 +12,18 @@ runner:
   use_gpu: True
   use_auc: True
   use_visual: True
-  train_batch_size: 512
-  epochs: 1
+  train_batch_size: 4096
+  epochs: 10
   print_interval: 10
   #model_init_path: "output_model/0" # init model
-  model_save_path: "output_model_bigdata_deepfm_dy"
+  model_save_path: "output_model_all_fm"
   test_data_dir: "../../../datasets/criteo/slot_test_data_full"
-  infer_reader_path: "criteo_reader" # importlib formats
+  infer_reader_path: "criteo_reader" # importlib format
   infer_batch_size: 512
-  infer_load_path: "output_model_bigdata_deepfm_dy"
+  infer_load_path: "output_model_all_fm"
   infer_start_epoch: 0
-  infer_end_epoch: 1
+  infer_end_epoch: 4
 
-# hyper parameters of user-defined network
 hyper_parameters:
   # optimizer config
   optimizer:
@@ -36,10 +35,6 @@ hyper_parameters:
   sparse_feature_number: 1000001
   sparse_feature_dim: 9
   dense_input_dim: 13
-  fc_sizes: [400, 400, 400]
-  distributed_embedding: 0
-  layer_sizes_dnn: [400, 400]
-  layer_sizes_cin: [200, 200, 200]
 ```
 <center><img src='./infer-auc.png' width=600></center>
 <center><img src='./train-auc.png' width=600></center>

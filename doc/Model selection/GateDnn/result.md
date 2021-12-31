@@ -1,8 +1,8 @@
-# xDeepFM
+# GateDnn
 
-auc_list累加值 6734.78226172924 平均值 0.7836609566824808
+auc_list累加值 2770.986435711384 平均值 0.8055193127067977
 
-infer_auc累加值 285.9816448688507 平均值 0.7943934579690297
+infer_auc累加值 28.72363841533661 平均值 0.7978788448704613
 
 配置文件：
 
@@ -10,20 +10,19 @@ infer_auc累加值 285.9816448688507 平均值 0.7943934579690297
 runner:
   train_data_dir: "../../../datasets/criteo/slot_train_data_full"
   train_reader_path: "criteo_reader" # importlib format
-  use_gpu: True
+  use_gpu: False
   use_auc: True
   use_visual: True
   train_batch_size: 512
-  epochs: 1
-  print_interval: 10
-  #model_init_path: "output_model/0" # init model
-  model_save_path: "output_model_bigdata_deepfm_dy"
-  test_data_dir: "../../../datasets/criteo/slot_test_data_full"
-  infer_reader_path: "criteo_reader" # importlib formats
+  epochs: 4
+  print_interval: 100
+  model_save_path: "output_model_gatednn_all"
   infer_batch_size: 512
-  infer_load_path: "output_model_bigdata_deepfm_dy"
-  infer_start_epoch: 0
-  infer_end_epoch: 1
+  infer_reader_path: "criteo_reader" # importlib format
+  test_data_dir: "../../../datasets/criteo/slot_test_data_full"
+  infer_load_path: "output_model_gatednn_all"
+  infer_start_epoch: 3
+  infer_end_epoch: 4
 
 # hyper parameters of user-defined network
 hyper_parameters:
@@ -31,16 +30,15 @@ hyper_parameters:
   optimizer:
     class: Adam
     learning_rate: 0.001
-    strategy: async
   # user-defined <key, value> pairs
   sparse_inputs_slots: 27
   sparse_feature_number: 1000001
   sparse_feature_dim: 9
   dense_input_dim: 13
-  fc_sizes: [400, 400, 400]
+  fc_sizes: [512, 256, 256]
   distributed_embedding: 0
-  layer_sizes_dnn: [400, 400]
-  layer_sizes_cin: [200, 200, 200]
+  use_embedding_gate: True
+  use_hidden_gate: True
 ```
 <center><img src='./infer-auc.png' width=600></center>
 <center><img src='./train-auc.png' width=600></center>

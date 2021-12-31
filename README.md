@@ -268,18 +268,18 @@ cd ~/
 
 以下数据的详细配置在```doc/Model selection```
 
-|       数据集        |       模型       |       训练loss        |       训练auc          |       预测auc         |
-| :------------------: | :--------------------: | :---------: |:---------: | :---------: |
-|       Criteo        |       DNN       |       0.44        |        0.79         |       0.79         |
-|       Criteo        |       FM       |       0.44        |       0.78          |       0.80          |
-|       Criteo        |       GateDnn       |       --        |       0.79          |       --          |
-|       Criteo        |       DeepFM       |       0.44797        |       0.78          |       0.77214          |
-|       criteo        |       Wide&Deep       |       0.76195         |       0.82          |       --          |
-|       criteo        |       dcn       |       --         |       0.77          |       --          |
-|       criteo        |       deepfefm       |       --         |       0.8028          |       --          |
-|       criteo        |       DLRM       |       0.45         |       0.79          |       0.80          |
-|       criteo        |       ffm       |       --         |       0.79          |       --          |
-|       criteo        |       xDeepFM       |       --         |       0.78          |       0.79          |
+|       数据集         |         模型        |       训练auc          |       预测auc         |
+| :-----------------: | :----------------: |:---------: | :---------: |
+|       Criteo        |        DNN         |        0.79         |       0.79         |
+|       Criteo        |         FM         |       0.78          |       **0.80**          |
+|       Criteo        |       GateDnn      |       **0.80**          |       0.79          |
+|       Criteo        |       DeepFM       |       0.78          |       0.77         |
+|       criteo        |      Wide&Deep     |       **0.80**          |       0.79          |
+|       criteo        |         dcn        |       0.77          |       0.75          |
+|       criteo        |       deepfefm     |       0.77          |       **0.80**          |
+|       criteo        |         DLRM       |       0.79          |       **0.80**          |
+|       criteo        |         ffm        |       0.74          |       0.79          |
+|       criteo        |       xDeepFM      |       0.78          |       0.79          |
 
 <a name="模型训练"></a>
 
@@ -710,6 +710,19 @@ I1229 04:14:10.165000 93427 general_model.cpp:490] [client]logid=0,client_cost=1
        [0.03498047],
        [0.14035006]], dtype=float32)}
 ```
+
+测试环境：
+
+OS_version: Alpine 10.2.1_pre1
+
+CPU: Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz 4核
+
+mem: 8G
+
+| 是否启用GPU | 是否开启tensorRT加速 | 是否开启mkldnn加速 | 线程数 | 批大小 | 是否开启内存优化器 | 开启IR优化 |       速度        | 
+| --------- | ------------------ | ---------------- | ----- | ----- | --------------- | --------- | ------------------- |
+| False     |        False       |        False     | 4     | 32     |       True      |   True    |   304/s  |
+| False     |        False       |        True     | 4     | 32     |       True      |   True    |   294/s  |
 
 <br/>
 <br/>

@@ -715,16 +715,24 @@ I1229 04:14:10.165000 93427 general_model.cpp:490] [client]logid=0,client_cost=1
 
 测试环境：
 
-OS_version: Alpine 10.2.1_pre1
+OS_version: Ubuntu 16.04
 
-CPU: Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz 4核
+CUDA_version: 10.1.243
 
-mem: 8G
+CUDNN_version: 7.3.1
+
+drivier_version: 418.67
+
+CPU: Intel(R) Core(TM) i5-8400 CPU @ 2.80GHz 6核心
+
+GPU: NVIDIA 1050 4GB
 
 | 是否启用GPU | 是否开启tensorRT加速 | 是否开启mkldnn加速 | 线程数 | 批大小 | 是否开启内存优化器 | 开启IR优化 |       速度        | 
 | --------- | ------------------ | ---------------- | ----- | ----- | --------------- | --------- | ------------------- |
-| False     |        False       |        False     | 4     | 32     |       True      |   True    |   1307/s  |
-| False     |        False       |        True     | 4     | 32     |       True      |   True    |   1460/s  |
+| False     |        False       |        False     | 4     | 32     |       True      |   True    |   2710/s  |
+| False     |        False       |        True     | 4     | 32     |       True      |   True    |   3038/s  |
+| True     |        False       |        False     | 4     | 32     |       True      |   True    |   2507/s  |
+| True     |        True       |        False     | 4     | 32     |       True      |   True    |   2853/s  |
 
 <br/>
 <br/>
@@ -776,16 +784,24 @@ print(json)
 
 测试环境：
 
-OS_version: Alpine 10.2.1_pre1
+OS_version: Ubuntu 16.04
 
-CPU: Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz 4核
+CUDA_version: 10.1.243
 
-mem: 8G
+CUDNN_version: 7.3.1
+
+drivier_version: 418.67
+
+CPU: Intel(R) Core(TM) i5-8400 CPU @ 2.80GHz 6核心
+
+GPU: NVIDIA 1050 4GB
 
 | 是否启用GPU | 是否开启tensorRT加速 | 是否开启mkldnn加速 | 线程数 | 批大小 | 是否开启内存优化器 | 开启IR优化 |       速度        | 
 | --------- | ------------------ | ---------------- | ----- | ----- | --------------- | --------- | ------------------- |
-| False     |        False       |        False     | 4     | 32     |       True      |   True    |   1149/s  |
-| False     |        False       |        True     | 4     | 32     |       True      |   True    |   1459/s  |
+| False     |        False       |        False     | 4     | 32     |       True      |   True    |   2004/s  |
+| False     |        False       |        True     | 4     | 32     |       True      |   True    |   2437/s  |
+| True     |        False       |        False     | 4     | 32     |       True      |   True    |   1943/s  |
+| True     |        True       |        False     | 4     | 32     |       True      |   True    |   2354/s  |
 
 <a name="文件清理"></a>
 
